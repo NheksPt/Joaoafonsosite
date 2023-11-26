@@ -33,9 +33,11 @@ namespace Joaoafonsositeweb.Controllers
             {
                 _db.Trabalho.Add(obj);
                 _db.SaveChanges();
+                TempData["success"] = "O trabalho foi criado com sucesso.";
                 return RedirectToAction("Index");
             }
 
+            TempData["error"] = "O trabalho não foi criado.";
             return View(obj);
         }
 
@@ -43,7 +45,7 @@ namespace Joaoafonsositeweb.Controllers
         {
             Trabalhos? obj = _db.Trabalho.FirstOrDefault(u => u.Id == trabalhoId);
 
-            if (obj == null)
+            if (obj is null)
             {
                 return RedirectToAction("Error", "Home");
             }
@@ -58,11 +60,42 @@ namespace Joaoafonsositeweb.Controllers
             {
                 _db.Trabalho.Update(obj);
                 _db.SaveChanges();
+                TempData["success"] = "O trabalho foi editado com sucesso.";
                 return RedirectToAction("Index");
             }
 
+            TempData["error"] = "O trabalho não foi editado.";
             return View(obj);
 
+        }
+
+        public IActionResult Apagar(int trabalhoId)
+        {
+            Trabalhos? obj = _db.Trabalho.FirstOrDefault(u => u.Id == trabalhoId);
+
+            if (obj is null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            return View(obj);
+        }
+
+        [HttpPost]
+        public IActionResult Apagar(Trabalhos obj)
+        {
+            Trabalhos? objFromDb = _db.Trabalho.FirstOrDefault(u => u.Id == obj.Id);
+
+            if (objFromDb is not null)
+            {
+                _db.Trabalho.Remove(objFromDb);
+                _db.SaveChanges();
+                TempData["success"] = "O trabalho foi eliminado com sucesso.";
+                return RedirectToAction("Index");
+            }
+
+            TempData["error"] = "O trabalho não foi eliminado.";
+            return View(obj);
         }
     }
 }
