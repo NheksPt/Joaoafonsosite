@@ -5,6 +5,7 @@ namespace Joaoafonsosite.Domain.Entities
     public class Trabalhos
     {
         public int Id { get; set; }
+        [MaxLength(50)]
         public required string Nome { get; set; }
         public required string Tipo { get; set; }
         [Display(Name = "Descrição")]
