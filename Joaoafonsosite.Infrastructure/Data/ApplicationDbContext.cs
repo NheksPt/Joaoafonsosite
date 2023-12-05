@@ -7,7 +7,6 @@ namespace Joaoafonsosite.Infrastructure.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-
         }
 
         public DbSet<Trabalhos> Trabalho { get; set; }
@@ -51,8 +50,8 @@ namespace Joaoafonsosite.Infrastructure.Data
                    SoftwareUsado = "Blender",
                    Duracao = 0.5,
                    Imagem = "https://placehold.co/600x402",
-
-               });
+               }
+               );
         }
     }
 }
